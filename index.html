@@ -1,0 +1,1699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<title>SantoLabs1 - Projects, Games & Creative Ideas</title>
+<meta name="description" content="SantoLabs1 - Explore games, projects, websites, experiments and creative ideas.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="SantoLabs1">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Helvetica,sans-serif;
+    background:
+        radial-gradient(circle at top left,#18204a 0%,transparent 35%),
+        radial-gradient(circle at bottom right,#32174f 0%,transparent 35%),
+        #070914;
+    color:#fff;
+    min-height:100vh;
+}
+
+button,
+input,
+textarea,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+/* HEADER */
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(18px);
+    background:rgba(7,9,20,.82);
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.nav{
+    max-width:1200px;
+    margin:auto;
+    padding:15px 20px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+    letter-spacing:.5px;
+}
+
+.logo span{
+    background:linear-gradient(90deg,#7c5cff,#00d4ff);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.nav-links{
+    display:flex;
+    gap:24px;
+    align-items:center;
+}
+
+.nav-links a{
+    color:#c8cbe0;
+    font-weight:600;
+}
+
+.nav-links a:hover{
+    color:#fff;
+}
+
+.nav-actions{
+    display:flex;
+    gap:8px;
+}
+
+.icon-btn{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    border:1px solid rgba(255,255,255,.1);
+    background:rgba(255,255,255,.06);
+    color:#fff;
+    position:relative;
+}
+
+.icon-btn:hover{
+    background:rgba(255,255,255,.12);
+}
+
+.notification-dot{
+    position:absolute;
+    top:7px;
+    right:7px;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:#ff3b6b;
+    display:none;
+}
+
+/* HERO */
+
+.hero{
+    max-width:1200px;
+    margin:auto;
+    padding:90px 20px 70px;
+    text-align:center;
+}
+
+.hero-badge{
+    display:inline-block;
+    padding:8px 14px;
+    border:1px solid rgba(124,92,255,.35);
+    background:rgba(124,92,255,.1);
+    border-radius:30px;
+    color:#bfb2ff;
+    font-size:13px;
+    font-weight:700;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(42px,8vw,82px);
+    line-height:1;
+    margin-bottom:20px;
+    letter-spacing:-3px;
+}
+
+.gradient{
+    background:linear-gradient(90deg,#7c5cff,#00d4ff,#7c5cff);
+    background-size:200%;
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:700px;
+    margin:auto;
+    color:#aeb2c8;
+    font-size:18px;
+    line-height:1.7;
+}
+
+.hero-buttons{
+    margin-top:30px;
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.primary-btn,
+.secondary-btn{
+    border:0;
+    border-radius:14px;
+    padding:14px 22px;
+    font-weight:800;
+    transition:.2s;
+}
+
+.primary-btn{
+    color:#fff;
+    background:linear-gradient(135deg,#7255ff,#00aeea);
+    box-shadow:0 10px 35px rgba(66,120,255,.2);
+}
+
+.secondary-btn{
+    color:#fff;
+    background:rgba(255,255,255,.07);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.primary-btn:hover,
+.secondary-btn:hover{
+    transform:translateY(-2px);
+}
+
+/* SECTIONS */
+
+section{
+    max-width:1200px;
+    margin:auto;
+    padding:60px 20px;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    margin-bottom:25px;
+    gap:20px;
+}
+
+.section-title h2{
+    font-size:32px;
+}
+
+.section-title p{
+    color:#9297b0;
+    margin-top:7px;
+}
+
+/* PROJECTS */
+
+.projects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+.project-card{
+    overflow:hidden;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.045);
+    border-radius:22px;
+    transition:.25s;
+}
+
+.project-card:hover{
+    transform:translateY(-5px);
+    border-color:rgba(124,92,255,.35);
+    background:rgba(255,255,255,.065);
+}
+
+.project-image{
+    height:180px;
+    background:
+        linear-gradient(135deg,rgba(124,92,255,.25),rgba(0,212,255,.12)),
+        #101426;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    overflow:hidden;
+}
+
+.project-image img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.project-icon{
+    font-size:55px;
+}
+
+.project-body{
+    padding:20px;
+}
+
+.project-body h3{
+    font-size:21px;
+    margin-bottom:8px;
+}
+
+.project-body p{
+    color:#a7abc0;
+    line-height:1.55;
+    min-height:48px;
+}
+
+.project-date{
+    color:#777c94;
+    font-size:12px;
+    margin-top:12px;
+}
+
+.project-actions{
+    margin-top:16px;
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+}
+
+.project-actions a,
+.project-actions button{
+    border:0;
+    border-radius:10px;
+    padding:9px 13px;
+    background:rgba(255,255,255,.08);
+    color:#fff;
+    font-weight:700;
+}
+
+.project-actions a:hover,
+.project-actions button:hover{
+    background:rgba(124,92,255,.25);
+}
+
+/* ABOUT */
+
+.about-box{
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.045);
+    border-radius:25px;
+    padding:30px;
+    color:#aeb2c8;
+    line-height:1.8;
+}
+
+/* FOOTER */
+
+footer{
+    border-top:1px solid rgba(255,255,255,.08);
+    margin-top:50px;
+}
+
+.footer-inner{
+    max-width:1200px;
+    margin:auto;
+    padding:30px 20px;
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+    color:#85899f;
+}
+
+/* MODAL */
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(10px);
+    z-index:3000;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal.show{
+    display:flex;
+}
+
+.modal-box{
+    width:min(600px,100%);
+    max-height:90vh;
+    overflow:auto;
+    background:#101323;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:22px;
+    padding:25px;
+    box-shadow:0 30px 100px rgba(0,0,0,.5);
+}
+
+.modal-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.modal-head h2{
+    font-size:25px;
+}
+
+.close-btn{
+    width:38px;
+    height:38px;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,.08);
+    background:rgba(255,255,255,.06);
+    color:#fff;
+}
+
+.form-group{
+    margin-bottom:15px;
+}
+
+.form-group label{
+    display:block;
+    margin-bottom:7px;
+    color:#c5c8d8;
+    font-size:14px;
+    font-weight:700;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+    width:100%;
+    padding:13px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,.1);
+    background:#090c18;
+    color:#fff;
+    outline:none;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+    border-color:#7255ff;
+}
+
+.form-group textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+.form-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:10px;
+    margin-top:20px;
+}
+
+.error{
+    color:#ff6b8b;
+    font-size:14px;
+    margin-top:10px;
+}
+
+.success{
+    color:#57e6a2;
+    font-size:14px;
+    margin-top:10px;
+}
+
+/* NOTIFICATIONS */
+
+.notification-panel{
+    position:fixed;
+    right:20px;
+    top:75px;
+    width:min(380px,calc(100% - 40px));
+    max-height:500px;
+    overflow:auto;
+    z-index:2000;
+    background:#101323;
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:18px;
+    box-shadow:0 25px 70px rgba(0,0,0,.45);
+    display:none;
+}
+
+.notification-panel.show{
+    display:block;
+}
+
+.notification-head{
+    padding:16px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.notification-list{
+    padding:8px;
+}
+
+.notification-item{
+    display:block;
+    padding:14px;
+    border-radius:13px;
+    margin-bottom:5px;
+}
+
+.notification-item:hover{
+    background:rgba(255,255,255,.06);
+}
+
+.notification-item strong{
+    display:block;
+    margin-bottom:5px;
+}
+
+.notification-item p{
+    color:#9da2b9;
+    font-size:13px;
+    line-height:1.5;
+}
+
+.notification-time{
+    display:block;
+    color:#6f7489;
+    font-size:11px;
+    margin-top:7px;
+}
+
+.empty{
+    padding:35px 20px;
+    text-align:center;
+    color:#777c94;
+}
+
+/* LOADING */
+
+.loading{
+    text-align:center;
+    padding:50px;
+    color:#8e93aa;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        padding-top:65px;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .hero p{
+        font-size:16px;
+    }
+
+    .section-title{
+        display:block;
+    }
+
+    .section-title h2{
+        font-size:27px;
+    }
+
+    .footer-inner{
+        display:block;
+        text-align:center;
+    }
+
+    .footer-inner div{
+        margin-bottom:8px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header>
+    <div class="nav">
+
+        <a href="#" class="logo">
+            Santo<span>Labs</span>
+        </a>
+
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+        </nav>
+
+        <div class="nav-actions">
+
+            <button
+                class="icon-btn"
+                id="notificationBtn"
+                title="Notifications">
+                🔔
+                <span
+                    class="notification-dot"
+                    id="notificationDot">
+                </span>
+            </button>
+
+            <button
+                class="icon-btn"
+                id="ownerBtn"
+                title="Owner">
+                👤
+            </button>
+
+        </div>
+
+    </div>
+</header>
+
+<!-- NOTIFICATION PANEL -->
+
+<div class="notification-panel" id="notificationPanel">
+
+    <div class="notification-head">
+        <strong>Notifications</strong>
+
+        <button
+            class="close-btn"
+            id="closeNotifications">
+            ×
+        </button>
+    </div>
+
+    <div
+        class="notification-list"
+        id="notificationList">
+
+        <div class="empty">
+            No notifications yet.
+        </div>
+
+    </div>
+
+</div>
+
+<!-- HERO -->
+
+<main>
+
+<section class="hero" id="home">
+
+    <div class="hero-badge">
+        🚀 BUILD • CREATE • SHARE
+    </div>
+
+    <h1>
+        Welcome to
+        <span class="gradient">SantoLabs</span>
+    </h1>
+
+    <p>
+        A place for projects, games, experiments and
+        creative ideas — all in one place.
+    </p>
+
+    <div class="hero-buttons">
+
+        <a
+            href="#projects"
+            class="primary-btn">
+            Explore Projects
+        </a>
+
+        <button
+            class="secondary-btn"
+            id="heroOwnerBtn">
+            Owner Panel
+        </button>
+
+    </div>
+
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects">
+
+    <div class="section-title">
+
+        <div>
+            <h2>Latest Projects</h2>
+
+            <p>
+                New projects and updates published here.
+            </p>
+        </div>
+
+    </div>
+
+    <div
+        class="projects"
+        id="projectsContainer">
+
+        <div class="loading">
+            Loading projects...
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+    <div class="section-title">
+
+        <div>
+            <h2>About SantoLabs</h2>
+
+            <p>
+                Learn, build and share.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="about-box">
+
+        SantoLabs is a personal project space for sharing
+        games, websites, experiments, videos, useful links
+        and other creative projects.
+
+        <br><br>
+
+        New content can be published from the owner panel
+        and automatically becomes available to everyone
+        using the website.
+
+    </div>
+
+</section>
+
+</main>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-inner">
+
+        <div>
+            © 2026 SantoLabs
+        </div>
+
+        <div>
+            Learn • Build • Innovate
+        </div>
+
+    </div>
+
+</footer>
+
+<!-- OWNER LOGIN MODAL -->
+
+<div
+    class="modal"
+    id="loginModal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+
+            <h2>Owner Login</h2>
+
+            <button
+                class="close-btn"
+                id="closeLogin">
+                ×
+            </button>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Owner Password
+            </label>
+
+            <input
+                type="password"
+                id="ownerPassword"
+                placeholder="Enter password">
+
+        </div>
+
+        <div
+            class="error"
+            id="loginError">
+        </div>
+
+        <div class="form-actions">
+
+            <button
+                class="secondary-btn"
+                id="cancelLogin">
+                Cancel
+            </button>
+
+            <button
+                class="primary-btn"
+                id="loginSubmit">
+                Login
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- OWNER PUBLISH MODAL -->
+
+<div
+    class="modal"
+    id="publishModal">
+
+    <div class="modal-box">
+
+        <div class="modal-head">
+
+            <h2>Publish New Project</h2>
+
+            <button
+                class="close-btn"
+                id="closePublish">
+                ×
+            </button>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Project Name
+            </label>
+
+            <input
+                type="text"
+                id="projectName"
+                placeholder="Example: My New Game">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Description
+            </label>
+
+            <textarea
+                id="projectDescription"
+                placeholder="Write about your project...">
+            </textarea>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Icon / Image URL
+            </label>
+
+            <input
+                type="url"
+                id="projectIcon"
+                placeholder="https://...">
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Content Type
+            </label>
+
+            <select id="contentType">
+
+                <option value="link">
+                    Website / Link
+                </option>
+
+                <option value="game">
+                    Game
+                </option>
+
+                <option value="video">
+                    Video
+                </option>
+
+                <option value="image">
+                    Image
+                </option>
+
+                <option value="text">
+                    Text / Information
+                </option>
+
+            </select>
+
+        </div>
+
+        <div class="form-group">
+
+            <label>
+                Content URL / Text
+            </label>
+
+            <textarea
+                id="contentValue"
+                placeholder="Paste URL or write content here...">
+            </textarea>
+
+        </div>
+
+        <div
+            class="success"
+            id="publishSuccess">
+        </div>
+
+        <div
+            class="error"
+            id="publishError">
+        </div>
+
+        <div class="form-actions">
+
+            <button
+                class="secondary-btn"
+                id="cancelPublish">
+                Cancel
+            </button>
+
+            <button
+                class="primary-btn"
+                id="publishSubmit">
+                Publish
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* =====================================================
+   SUPABASE CONFIGURATION
+   ===================================================== */
+
+const SUPABASE_URL =
+    "https://uihbwlozvnkpyyjrnohw.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_X658CO-_-gDTIl8S_cEd1A_nozQQBjO";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =====================================================
+   OWNER PASSWORD
+   =====================================================
+
+   TEMPORARY FRONTEND PASSWORD.
+
+   This is NOT secure because anyone can inspect
+   the website source.
+
+   We can replace this later with Supabase Auth.
+   ===================================================== */
+
+const OWNER_PASSWORD = "matthew77";
+
+
+/* =====================================================
+   ELEMENTS
+   ===================================================== */
+
+const projectsContainer =
+    document.getElementById("projectsContainer");
+
+const notificationPanel =
+    document.getElementById("notificationPanel");
+
+const notificationList =
+    document.getElementById("notificationList");
+
+const notificationDot =
+    document.getElementById("notificationDot");
+
+const loginModal =
+    document.getElementById("loginModal");
+
+const publishModal =
+    document.getElementById("publishModal");
+
+
+/* =====================================================
+   ONLINE / OFFLINE REDIRECT
+   ===================================================== */
+
+function checkConnection(){
+
+    if(!navigator.onLine){
+
+        if(
+            !location.pathname.endsWith("/game.html") &&
+            !location.pathname.endsWith("game.html")
+        ){
+
+            location.href = "game.html";
+
+        }
+
+    }
+
+}
+
+window.addEventListener(
+    "offline",
+    checkConnection
+);
+
+window.addEventListener(
+    "online",
+    () => {
+
+        if(
+            location.pathname.endsWith("game.html")
+        ){
+
+            location.href = "index.html";
+
+        }
+
+    }
+);
+
+checkConnection();
+
+
+/* =====================================================
+   LOAD PROJECTS
+   ===================================================== */
+
+async function loadProjects(){
+
+    projectsContainer.innerHTML = `
+        <div class="loading">
+            Loading projects...
+        </div>
+    `;
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("projects")
+        .select("*")
+        .order(
+            "created_at",
+            { ascending:false }
+        );
+
+    if(error){
+
+        console.error(error);
+
+        projectsContainer.innerHTML = `
+            <div class="empty">
+                Unable to load projects.
+                <br><br>
+                Check your Supabase setup.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    if(!data || data.length === 0){
+
+        projectsContainer.innerHTML = `
+            <div class="empty">
+                No projects published yet.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    projectsContainer.innerHTML = "";
+
+    data.forEach(project => {
+
+        const card =
+            createProjectCard(project);
+
+        projectsContainer.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================================
+   CREATE PROJECT CARD
+   ===================================================== */
+
+function createProjectCard(project){
+
+    const card =
+        document.createElement("article");
+
+    card.className =
+        "project-card";
+
+    const icon =
+        project.icon_url
+        ? `
+            <img
+                src="${escapeAttribute(project.icon_url)}"
+                alt="">
+          `
+        : `
+            <div class="project-icon">
+                🚀
+            </div>
+          `;
+
+    const contents =
+        project.contents || {};
+
+    let actionHTML = "";
+
+    if(contents.url){
+
+        actionHTML = `
+            <a
+                href="${escapeAttribute(contents.url)}"
+                target="_blank"
+                rel="noopener">
+                Open
+            </a>
+        `;
+
+    }
+
+    if(contents.text){
+
+        actionHTML += `
+            <button
+                onclick="showProjectText(${JSON.stringify(contents.text).replace(/"/g,'&quot;')})">
+                Read
+            </button>
+        `;
+
+    }
+
+    card.innerHTML = `
+
+        <div class="project-image">
+            ${icon}
+        </div>
+
+        <div class="project-body">
+
+            <h3>
+                ${escapeHTML(project.name)}
+            </h3>
+
+            <p>
+                ${escapeHTML(
+                    project.description || ""
+                )}
+            </p>
+
+            <div class="project-date">
+                ${formatDate(project.created_at)}
+            </div>
+
+            <div class="project-actions">
+                ${actionHTML}
+            </div>
+
+        </div>
+    `;
+
+    return card;
+
+}
+
+
+/* =====================================================
+   PROJECT TEXT
+   ===================================================== */
+
+function showProjectText(text){
+
+    alert(text);
+
+}
+
+
+/* =====================================================
+   LOAD NOTIFICATIONS
+   ===================================================== */
+
+async function loadNotifications(){
+
+    const {
+        data,
+        error
+    } = await supabaseClient
+        .from("notifications")
+        .select("*")
+        .order(
+            "created_at",
+            { ascending:false }
+        )
+        .limit(30);
+
+    if(error){
+
+        console.error(error);
+        return;
+
+    }
+
+    notificationList.innerHTML = "";
+
+    if(!data || data.length === 0){
+
+        notificationList.innerHTML = `
+            <div class="empty">
+                No notifications yet.
+            </div>
+        `;
+
+        return;
+
+    }
+
+    data.forEach(notification => {
+
+        const item =
+            document.createElement("a");
+
+        item.className =
+            "notification-item";
+
+        item.href =
+            "#projects";
+
+        item.innerHTML = `
+
+            <strong>
+                ${escapeHTML(notification.title)}
+            </strong>
+
+            <p>
+                ${escapeHTML(
+                    notification.message || ""
+                )}
+            </p>
+
+            <span class="notification-time">
+                ${formatDate(
+                    notification.created_at
+                )}
+            </span>
+
+        `;
+
+        notificationList.appendChild(item);
+
+    });
+
+    notificationDot.style.display =
+        "block";
+
+}
+
+
+/* =====================================================
+   OWNER LOGIN
+   ===================================================== */
+
+function openLogin(){
+
+    loginModal.classList.add("show");
+
+    document.getElementById(
+        "ownerPassword"
+    ).value = "";
+
+    document.getElementById(
+        "loginError"
+    ).textContent = "";
+
+}
+
+function closeLogin(){
+
+    loginModal.classList.remove("show");
+
+}
+
+document.getElementById(
+    "ownerBtn"
+).onclick = openLogin;
+
+document.getElementById(
+    "heroOwnerBtn"
+).onclick = openLogin;
+
+document.getElementById(
+    "closeLogin"
+).onclick = closeLogin;
+
+document.getElementById(
+    "cancelLogin"
+).onclick = closeLogin;
+
+
+/* =====================================================
+   LOGIN CHECK
+   ===================================================== */
+
+document.getElementById(
+    "loginSubmit"
+).onclick = function(){
+
+    const password =
+        document.getElementById(
+            "ownerPassword"
+        ).value;
+
+    if(password === OWNER_PASSWORD){
+
+        closeLogin();
+
+        openPublish();
+
+    }else{
+
+        document.getElementById(
+            "loginError"
+        ).textContent =
+            "Incorrect password.";
+
+    }
+
+};
+
+
+/* =====================================================
+   PUBLISH MODAL
+   ===================================================== */
+
+function openPublish(){
+
+    publishModal.classList.add("show");
+
+    document.getElementById(
+        "publishError"
+    ).textContent = "";
+
+    document.getElementById(
+        "publishSuccess"
+    ).textContent = "";
+
+}
+
+function closePublish(){
+
+    publishModal.classList.remove("show");
+
+}
+
+document.getElementById(
+    "closePublish"
+).onclick = closePublish;
+
+document.getElementById(
+    "cancelPublish"
+).onclick = closePublish;
+
+
+/* =====================================================
+   PUBLISH PROJECT
+   ===================================================== */
+
+document.getElementById(
+    "publishSubmit"
+).onclick = async function(){
+
+    const button =
+        this;
+
+    const name =
+        document.getElementById(
+            "projectName"
+        ).value.trim();
+
+    const description =
+        document.getElementById(
+            "projectDescription"
+        ).value.trim();
+
+    const icon =
+        document.getElementById(
+            "projectIcon"
+        ).value.trim();
+
+    const type =
+        document.getElementById(
+            "contentType"
+        ).value;
+
+    const value =
+        document.getElementById(
+            "contentValue"
+        ).value.trim();
+
+    const errorBox =
+        document.getElementById(
+            "publishError"
+        );
+
+    const successBox =
+        document.getElementById(
+            "publishSuccess"
+        );
+
+    errorBox.textContent = "";
+    successBox.textContent = "";
+
+    if(!name){
+
+        errorBox.textContent =
+            "Please enter a project name.";
+
+        return;
+
+    }
+
+    if(!value){
+
+        errorBox.textContent =
+            "Please enter content.";
+
+        return;
+
+    }
+
+    button.disabled = true;
+
+    button.textContent =
+        "Publishing...";
+
+    let contents = {};
+
+    if(
+        type === "link" ||
+        type === "game" ||
+        type === "video" ||
+        type === "image"
+    ){
+
+        contents = {
+            type:type,
+            url:value
+        };
+
+    }else{
+
+        contents = {
+            type:type,
+            text:value
+        };
+
+    }
+
+    const {
+        data:project,
+        error:projectError
+    } =
+        await supabaseClient
+            .from("projects")
+            .insert([
+                {
+                    name:name,
+                    description:description,
+                    icon_url:icon,
+                    contents:contents
+                }
+            ])
+            .select()
+            .single();
+
+    if(projectError){
+
+        console.error(projectError);
+
+        errorBox.textContent =
+            projectError.message ||
+            "Project could not be published.";
+
+        button.disabled = false;
+        button.textContent =
+            "Publish";
+
+        return;
+
+    }
+
+
+    /* CREATE NOTIFICATION */
+
+    const {
+        error:notificationError
+    } =
+        await supabaseClient
+            .from("notifications")
+            .insert([
+                {
+                    title:
+                        "New project published 🚀",
+
+                    message:
+                        name +
+                        " has been added to SantoLabs.",
+
+                    project_id:
+                        project.id
+                }
+            ]);
+
+    if(notificationError){
+
+        console.error(
+            notificationError
+        );
+
+    }
+
+
+    successBox.textContent =
+        "Published successfully!";
+
+    button.disabled = false;
+
+    button.textContent =
+        "Publish";
+
+    clearPublishForm();
+
+    await loadProjects();
+
+    await loadNotifications();
+
+    setTimeout(
+        closePublish,
+        1000
+    );
+
+};
+
+
+/* =====================================================
+   CLEAR FORM
+   ===================================================== */
+
+function clearPublishForm(){
+
+    document.getElementById(
+        "projectName"
+    ).value = "";
+
+    document.getElementById(
+        "projectDescription"
+    ).value = "";
+
+    document.getElementById(
+        "projectIcon"
+    ).value = "";
+
+    document.getElementById(
+        "contentValue"
+    ).value = "";
+
+}
+
+
+/* =====================================================
+   NOTIFICATION BUTTON
+   ===================================================== */
+
+document.getElementById(
+    "notificationBtn"
+).onclick = function(){
+
+    notificationPanel.classList.toggle(
+        "show"
+    );
+
+};
+
+document.getElementById(
+    "closeNotifications"
+).onclick = function(){
+
+    notificationPanel.classList.remove(
+        "show"
+    );
+
+};
+
+
+/* =====================================================
+   REALTIME NOTIFICATIONS
+   ===================================================== */
+
+supabaseClient
+    .channel("santolabs-notifications")
+    .on(
+        "postgres_changes",
+        {
+            event:"INSERT",
+            schema:"public",
+            table:"notifications"
+        },
+        payload => {
+
+            loadNotifications();
+
+            notificationDot.style.display =
+                "block";
+
+        }
+    )
+    .subscribe();
+
+
+/* =====================================================
+   HELPERS
+   ===================================================== */
+
+function escapeHTML(value){
+
+    return String(value)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+
+}
+
+function escapeAttribute(value){
+
+    return escapeHTML(value);
+
+}
+
+function formatDate(date){
+
+    if(!date){
+        return "";
+    }
+
+    return new Date(date)
+        .toLocaleString(
+            "en-IN",
+            {
+                dateStyle:"medium",
+                timeStyle:"short"
+            }
+        );
+
+}
+
+
+/* =====================================================
+   START
+   ===================================================== */
+
+loadProjects();
+
+loadNotifications();
+
+</script>
+
+</body>
+</html>
